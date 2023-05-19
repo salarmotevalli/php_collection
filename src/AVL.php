@@ -3,11 +3,12 @@
 namespace Salar\Bst;
 
 use Salar\Bst\Contract\BTree;
+use Salar\Bst\Contract\Node;
 
 class AVL implements BTree
 {
-    private $left_child;
-    private $right_child;
+    private ?Node $left_child;
+    private ?Node $right_child;
 
 
     // Create new AVL
@@ -20,5 +21,20 @@ class AVL implements BTree
     public static function from(): self
     {
         return new self();
+    }
+
+    public function delete()
+    {
+        // TODO: Implement delete() method.
+    }
+
+    public function insert(): BTree
+    {
+//        return ;
+    }
+
+    public function search(): null|Node
+    {
+        // TODO: Implement search() method.
     }
 }
