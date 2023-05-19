@@ -2,17 +2,22 @@
 
 namespace Salar\Bst;
 
-class AVL
+use Salar\Bst\Contract\BTree;
+
+class AVL implements BTree
 {
     private $left_child;
     private $right_child;
 
-    public function new(): self
+
+    // Create new AVL
+    public static function new(): self
     {
         return new self();
     }
 
-    public function from(): self
+    // Create AVL with default value
+    public static function from(): self
     {
         return new self();
     }
