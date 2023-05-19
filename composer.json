@@ -1,0 +1,15 @@
+{
+    "name": "salar/bst",
+    "autoload": {
+        "psr-4": {
+            "Salar\\Bst\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "salarmotevalli",
+            "email": "salar.mo.ro@gmail.com"
+        }
+    ],
+    "require": {}
+}
