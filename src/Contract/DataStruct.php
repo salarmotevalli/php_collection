@@ -8,40 +8,31 @@ interface DataStruct
     public static function new(): self;
 
     // Create with default value
-    public static function from(): self;
+    public static function from(array $data): self;
 
     // Insert Node
-    public function insert(): void;
+    public function insert(mixed $value): void;
 
     // Append other DataStruct with self
-    public function append(array|self $map): self;
+    public function append(array|self $data): self;
 
     // Clear DataStruct
     public function clear(): void;
 
     // Get first Node
-    public function first_key_value(): array;
-
-    // Get Node by key
-    public function get(): Node;
-
-    // Get key and value
-    public function get_key_value(string $key): array;
+    public function first_key_value(): mixed;
 
     // Is Btree empty?
     public function is_empty(): bool;
 
-    // Get list of keys
-    public function keys(): array;
-
-    // Get last Node
-    public function last_key_value(): array;
+        // Get last Node
+    public function last_value(): mixed;
 
     // return length of DataStruct
     public function len(): int;
 
     public function pop_first(): bool;
     public function pop_last(): bool;
-    public function remove();
+    public function remove(mixed $value);
     public function values(): array;
 }
