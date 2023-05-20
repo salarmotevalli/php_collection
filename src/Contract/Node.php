@@ -1,6 +1,6 @@
 <?php
 
-namespace Salar\Bst\Contract;
+namespace Salar\Contract;
 
 interface Node
 {}

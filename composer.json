@@ -2,7 +2,7 @@
     "name": "salar/bst",
     "autoload": {
         "psr-4": {
-            "Salar\\Bst\\": "src/"
+            "Salar\\": "src/"
         }
     },
     "authors": [
