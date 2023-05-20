@@ -9,9 +9,7 @@ class BSTSlice implements DataStruct
 {
     public ?Node $root = null;
 
-    private function __construct()
-    {
-    }
+    private function __construct(){}
 
     public static function new(): static
     {
@@ -20,7 +18,16 @@ class BSTSlice implements DataStruct
 
     public static function from(array $data): static
     {
-        return new static();
+        // create new bst
+        $bst = new static();
+
+        // insert values
+        foreach ($data as $value) {
+            $bst->insert($value);
+        }
+
+        // return bst
+        return $bst;
     }
 
     public function insert(mixed $value): void

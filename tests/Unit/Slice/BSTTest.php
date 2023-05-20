@@ -10,7 +10,22 @@ test('new_static_function', function () {
     expect($bst)->toBeInstanceOf(BSTSlice::class);
 });
 
-test('insert_static_function', function () {
+test('from_static_function', function () {
+    $bst = BSTSlice::from([
+        10,
+        20,
+        5,
+        8,
+        14,
+        30,
+    ]);
+
+    // from function has to make and return new instance of collection with passed data
+    expect($bst)->toBeInstanceOf(BSTSlice::class);
+    expect($bst->root->value)->toBe(10);
+});
+
+test('insert_function', function () {
     $bst = BSTSlice::new();
 
     // root is null after creating new collection
@@ -30,3 +45,4 @@ test('insert_static_function', function () {
     expect($bst->root->right_child->value)->toBe(15);
 
 });
+
