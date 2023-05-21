@@ -60,3 +60,13 @@ test('first_value_function', function () use ($numbers) {
 
    expect($bst->first_value())->toBe(5);
 });
+
+test('is_empty_function', function () use ($numbers) {
+    $bst = BSTSlice::new();
+    expect($bst->is_empty())->toBeTrue();
+
+    $bst->insert(6);
+    $bst->insert(10);
+
+    expect($bst->is_empty())->toBeFalse();
+});

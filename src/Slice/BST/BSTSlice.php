@@ -85,7 +85,7 @@ class BSTSlice implements DataStruct
 
     public function is_empty(): bool
     {
-
+        return $this->root == null;
     }
 
     public function last_value(): mixed
