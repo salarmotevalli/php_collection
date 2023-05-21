@@ -3,6 +3,15 @@
 use Salar\Contract\Node;
 use Salar\Slice\BST\BSTSlice;
 
+$numbers = [
+    10,
+    20,
+    5,
+    8,
+    14,
+    30,
+];
+
 test('new_static_function', function () {
     $bst = BSTSlice::new();
 
@@ -10,15 +19,8 @@ test('new_static_function', function () {
     expect($bst)->toBeInstanceOf(BSTSlice::class);
 });
 
-test('from_static_function', function () {
-    $bst = BSTSlice::from([
-        10,
-        20,
-        5,
-        8,
-        14,
-        30,
-    ]);
+test('from_static_function', function () use ($numbers) {
+    $bst = BSTSlice::from($numbers);
 
     // from function has to make and return new instance of collection with passed data
     expect($bst)->toBeInstanceOf(BSTSlice::class);
@@ -46,3 +48,8 @@ test('insert_function', function () {
 
 });
 
+test('last_value_function', function () use ($numbers) {
+   $bst = BSTSlice::from($numbers);
+
+   expect($bst->last_value())->toBe(30);
+});

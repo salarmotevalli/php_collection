@@ -20,7 +20,7 @@ interface DataStruct
     public function clear(): void;
 
     // Get first Node
-    public function first_key_value(): mixed;
+    public function first_value(): mixed;
 
     // Is Btree empty?
     public function is_empty(): bool;

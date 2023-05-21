@@ -68,7 +68,7 @@ class BSTSlice implements DataStruct
         // TODO: Implement clear() method.
     }
 
-    public function first_key_value(): mixed
+    public function first_value(): mixed
     {
         return "salar";
     }
@@ -80,7 +80,17 @@ class BSTSlice implements DataStruct
 
     public function last_value(): mixed
     {
-        return 3;
+        // return null if slice is empty
+        if ($this->root == null) return null;
+
+        $current = $this->root;
+        while (true) {
+            // return if node is the last right child
+            if ($current->right_child == null) return $current->value;
+
+            // set as current node
+            $current = $current->right_child;
+        }
     }
 
     public function len(): int
