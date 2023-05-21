@@ -70,12 +70,22 @@ class BSTSlice implements DataStruct
 
     public function first_value(): mixed
     {
-        return "salar";
+        // return null if slice is empty
+        if ($this->root == null) return null;
+
+        $current = $this->root;
+        while (true) {
+            // return if node is the last right child
+            if ($current->left_child == null) return $current->value;
+
+            // set as current node
+            $current = $current->left_child;
+        }
     }
 
     public function is_empty(): bool
     {
-        return true;
+
     }
 
     public function last_value(): mixed

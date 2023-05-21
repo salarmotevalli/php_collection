@@ -51,5 +51,12 @@ test('insert_function', function () {
 test('last_value_function', function () use ($numbers) {
    $bst = BSTSlice::from($numbers);
 
+    // largest number is 30 so last value should be 30
    expect($bst->last_value())->toBe(30);
+});
+
+test('first_value_function', function () use ($numbers) {
+   $bst = BSTSlice::from($numbers);
+
+   expect($bst->first_value())->toBe(5);
 });
