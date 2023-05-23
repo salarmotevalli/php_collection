@@ -61,7 +61,7 @@ test('first_value_function', function () use ($numbers) {
    expect($bst->first_value())->toBe(5);
 });
 
-test('is_empty_function', function () use ($numbers) {
+test('is_empty_function', function () {
     $bst = BSTSlice::new();
     expect($bst->is_empty())->toBeTrue();
 
@@ -70,3 +70,37 @@ test('is_empty_function', function () use ($numbers) {
 
     expect($bst->is_empty())->toBeFalse();
 });
+
+test('clear_function', function () use ($numbers) {
+    $bst = BSTSlice::from($numbers);
+    expect($bst->is_empty())->toBeFalse();
+
+    $bst->clear();
+    expect($bst->is_empty())->toBeTrue();
+});
+
+//test('len_function', function () use ($numbers) {
+//    $bst = BSTSlice::from($numbers);
+//    expect($bst->len())->toBe(count($numbers));
+//
+//    $bst->insert(6);
+//    $bst->insert(10);
+//
+//    expect($bst->len())->toBe(count($numbers) + 2);
+//});
+
+
+//test('pop_first_function', function () use ($numbers) {
+//    $bst = BSTSlice::new();
+//
+//    // pop method return null if tree is empty
+//    expect($bst->pop_first())->toBeNull();
+//
+//
+//    expect($bst->first_value())->toBe(8);
+//
+//    $bst->pop_first();
+//    $bst->pop_first();
+//    expect($bst->first_value())->toBe(14);
+//    expect($bst->root->value)->toBe(14);
+//});

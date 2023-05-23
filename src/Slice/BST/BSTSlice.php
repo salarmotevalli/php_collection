@@ -2,6 +2,7 @@
 
 namespace Salar\Slice\BST;
 
+use phpDocumentor\Reflection\Types\Null_;
 use Salar\Contract\DataStruct;
 use Salar\Contract\Node;
 
@@ -65,7 +66,8 @@ class BSTSlice implements DataStruct
 
     public function clear(): void
     {
-        // TODO: Implement clear() method.
+        unset($this->root->left_child, $this->root->right_child);
+        $this->root = null;
     }
 
     public function first_value(): mixed
@@ -105,7 +107,12 @@ class BSTSlice implements DataStruct
 
     public function len(): int
     {
-        return 3;
+        $len = 0;
+
+        $current = $this->root;
+        while (true) {
+
+        }
     }
 
     public function pop_first(): bool
