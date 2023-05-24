@@ -1,6 +1,6 @@
 <?php
 
-namespace Salar\Slice\BST;
+namespace Salar\Sets\BST;
 
 use phpDocumentor\Reflection\DocBlock\Tags\Return_;
 use Salar\Contract\DataStruct;

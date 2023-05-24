@@ -13,6 +13,8 @@ interface DataStruct
     // Insert Node
     public function insert(mixed $value): void;
 
+    public function multi_insert(array $values): void;
+
     // Append other DataStruct with self
     public function append(array|self $data): self;
 

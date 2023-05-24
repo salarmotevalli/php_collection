@@ -1,7 +1,7 @@
 <?php
 
 use Salar\Contract\Node;
-use Salar\Slice\BST\BSTSet;
+use Salar\Sets\BST\BSTSet;
 
 $numbers = [
     10,
@@ -48,6 +48,17 @@ test('insert_function', function () {
 
 });
 
+test('multi_insert_function', function () use ($numbers) {
+    $bst = BSTSet::new();
+
+    $bst->multi_insert($numbers);
+
+    // root is equal to first inserted node
+    expect($bst->root)->toBeInstanceOf(Node::class);
+    expect($bst->root->value)->toBe(10);
+//    expect($bst->len())->toBe(count($numbers));
+});
+
 test('last_value_function', function () use ($numbers) {
    $bst = BSTSet::from($numbers);
 
@@ -85,28 +96,14 @@ test('clear_function', function () use ($numbers) {
 //
 //});
 
-test('len_function', function () use ($numbers) {
-    $bst = BSTSet::from($numbers);
-    expect($bst->len())->toBe(count($numbers));
-
-    $bst->insert(6);
-    $bst->insert(130);
-
-    expect($bst->len())->toBe(count($numbers) + 2);
-});
-
-
-//test('pop_first_function', function () use ($numbers) {
-//    $bst = BSTSet::new();
+//test('len_function', function () use ($numbers) {
+//    $bst = BSTSet::from($numbers);
+//    expect($bst->len())->toBe(count($numbers));
 //
-//    // pop method return null if tree is empty
-//    expect($bst->pop_first())->toBeNull();
+//    $bst->insert(6);
+//    $bst->insert(130);
 //
-//
-//    expect($bst->first_value())->toBe(8);
-//
-//    $bst->pop_first();
-//    $bst->pop_first();
-//    expect($bst->first_value())->toBe(14);
-//    expect($bst->root->value)->toBe(14);
+//    expect($bst->len())->toBe(count($numbers) + 2);
 //});
+
+

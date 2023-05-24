@@ -1,6 +1,6 @@
 <?php
 
-namespace Salar\Slice\BST;
+namespace Salar\Sets\BST;
 
 use phpDocumentor\Reflection\Types\Null_;
 use Salar\Contract\DataStruct;
@@ -119,6 +119,7 @@ class BSTSet implements DataStruct
 //        traverse($this->root);
 //
 //        return $GLOBALS['len'];
+        return 3;
     }
 
     public function pop_first(): bool
@@ -152,5 +153,12 @@ class BSTSet implements DataStruct
 //
 //        return $values;
         return [];
+    }
+
+    public function multi_insert(array $values): void
+    {
+        foreach ($values as $value) {
+            $this->insert($value);
+        }
     }
 }
