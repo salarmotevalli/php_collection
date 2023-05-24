@@ -6,7 +6,7 @@ use phpDocumentor\Reflection\Types\Null_;
 use Salar\Contract\DataStruct;
 use Salar\Contract\Node;
 
-class BSTSlice implements DataStruct
+class BSTSet implements DataStruct
 {
     public ?Node $root = null;
 
@@ -34,7 +34,7 @@ class BSTSlice implements DataStruct
     public function insert(mixed $value): void
     {
         // create new node
-        $node = new BSTSliceNode($value);
+        $node = new BSTSetNode($value);
 
         // set as root if node is the first inserted element
         // then return
@@ -107,12 +107,18 @@ class BSTSlice implements DataStruct
 
     public function len(): int
     {
-        $len = 0;
-
-        $current = $this->root;
-        while (true) {
-
-        }
+//        $GLOBALS['len'] = 0;
+//
+//        function traverse($node) {
+//            if ($node == null) return;
+//            traverse($node->left_child);
+//            $GLOBALS['len'] = $GLOBALS['len'] + 1;
+//            traverse($node->right_child);
+//        }
+//
+//        traverse($this->root);
+//
+//        return $GLOBALS['len'];
     }
 
     public function pop_first(): bool
@@ -132,6 +138,19 @@ class BSTSlice implements DataStruct
 
     public function values(): array
     {
+//        $values = array();
+//
+//        function traverse(?Node $node) use ($values): void
+//        {
+//            if ($node == null) return;
+//            traverse($node->left_child);
+//            $values[] = $node->value;
+//            traverse($node->right_child);
+//        };
+//
+//        traverse($this->root);
+//
+//        return $values;
         return [];
     }
 }

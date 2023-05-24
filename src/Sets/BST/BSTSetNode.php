@@ -6,7 +6,7 @@ use phpDocumentor\Reflection\DocBlock\Tags\Return_;
 use Salar\Contract\DataStruct;
 use Salar\Contract\Node;
 
-class BSTSliceNode implements Node
+class BSTSetNode implements Node
 {
     public function __construct(
         public mixed $value,
