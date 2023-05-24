@@ -106,4 +106,16 @@ test('clear_function', function () use ($numbers) {
 //    expect($bst->len())->toBe(count($numbers) + 2);
 //});
 
+test('pop_first_function', function () use ($numbers) {
+    $bst = BSTSet::from($numbers);
 
+    expect($bst->first_value())->toBe(5);
+
+    // pop function returns deleted value
+    expect($bst->pop_first())->toBe(5);
+
+    // after deleting first value, now the smallest value is 8
+    expect($bst->first_value())->toBe(8);
+
+    // TODO: process for deleting root node
+});
