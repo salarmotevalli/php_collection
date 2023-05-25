@@ -10,7 +10,9 @@ class BSTSet implements DataStruct
 {
     public ?Node $root = null;
 
-    private function __construct(){}
+    private function __construct()
+    {
+    }
 
     public static function new(): static
     {
@@ -124,23 +126,28 @@ class BSTSet implements DataStruct
 
     public function pop_first(): mixed
     {
-        if ($this->root == null) {
+        if ($this->is_empty()) {
             return null;
         }
 
         $current = $this->root;
-        $tmp = null;
         $parent = null;
 
         while (true) {
+            // Skip if node has left child
             if ($current->left_child != null) {
+
+                // set as parent and current
                 $parent = $current;
                 $current = $current->left_child;
 
                 continue;
             }
+
+            // Check the node has right child
             if ($current->right_child != null) {
 
+                // Check the node has parent or node is root node
                 if ($parent == null) {
                     $tmp = $this->root->value;
                     $this->root = $current->right_child;
@@ -148,7 +155,6 @@ class BSTSet implements DataStruct
                     $tmp = $parent->left_child->value;
                     $parent->left_child = $current->right_child;
                 }
-                return $tmp;
             } else {
                 if ($parent == null) {
                     $tmp = $this->root->value;
@@ -157,10 +163,12 @@ class BSTSet implements DataStruct
                     $tmp = $parent->left_child->value;
                     $parent->left_child = null;
                 }
-                return $tmp;
             }
+
+            return $tmp;
         }
     }
+
 
     public function pop_last(): bool
     {

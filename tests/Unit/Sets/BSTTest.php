@@ -124,5 +124,11 @@ test('pop_first_function', function () use ($numbers) {
     $bst->pop_first();
     expect($bst->first_value())->toBe(20);
 
+    $bst->pop_first();
+    $bst->pop_first();
+
+    // pop function returns null if tree is empty
+    expect($bst->pop_first())->toBeNull();
+
     // TODO: process for deleting root node
 });
