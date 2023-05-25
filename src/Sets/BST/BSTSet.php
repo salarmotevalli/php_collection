@@ -137,7 +137,7 @@ class BSTSet implements DataStruct
             // Skip if node has left child
             if ($current->left_child != null) {
 
-                // set as parent and current
+                // Set as parent and current
                 $parent = $current;
                 $current = $current->left_child;
 
@@ -170,9 +170,49 @@ class BSTSet implements DataStruct
     }
 
 
-    public function pop_last(): bool
+    public function pop_last(): mixed
     {
-        return true;
+        if ($this->is_empty()) {
+            return null;
+        }
+
+        $current = $this->root;
+        $parent = null;
+
+        while (true) {
+            // Skip if node has left child
+            if ($current->right_child != null) {
+
+                // Set as parent and current
+                $parent = $current;
+                $current = $current->right_child;
+
+                continue;
+            }
+
+            // Check the node has right child
+            if ($current->left_child != null) {
+
+                // Check the node has parent or node is root node
+                if ($parent == null) {
+                    $tmp = $this->root->value;
+                    $this->root = $current->left_child;
+                } else {
+                    $tmp = $parent->right_child->value;
+                    $parent->right_child = $current->left_child;
+                }
+            } else {
+                if ($parent == null) {
+                    $tmp = $this->root->value;
+                    $this->root = null;
+                } else {
+                    $tmp = $parent->right_child->value;
+                    $parent->right_child = null;
+                }
+            }
+
+            return $tmp;
+        }
     }
 
     public function remove(mixed $value)

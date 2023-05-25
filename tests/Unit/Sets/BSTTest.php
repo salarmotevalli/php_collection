@@ -132,3 +132,30 @@ test('pop_first_function', function () use ($numbers) {
 
     // TODO: process for deleting root node
 });
+
+test('pop_last_function', function () use ($numbers) {
+    $bst = BSTSet::from($numbers);
+
+    expect($bst->last_value())->toBe(30);
+
+    // pop function returns deleted value
+    expect($bst->pop_last())->toBe(30);
+
+    // after deleting first value, now the smallest value is 8
+    expect($bst->last_value())->toBe(20);
+
+    // these pops going to pop the root node,
+    // so we test it again to make sure it works fine
+    $bst->pop_last();
+    $bst->pop_last();
+    $bst->pop_last();
+    expect($bst->last_value())->toBe(8);
+
+    $bst->pop_last();
+    $bst->pop_last();
+
+    // pop function returns null if tree is empty
+    expect($bst->pop_last())->toBeNull();
+
+    // TODO: process for deleting root node
+});
