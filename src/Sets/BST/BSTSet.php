@@ -122,9 +122,40 @@ class BSTSet implements DataStruct
         return 3;
     }
 
-    public function pop_first(): bool
+    public function pop_first(): mixed
     {
-        return true;
+        $current = $this->root;
+        $tmp = null;
+        $parent = null;
+
+        while (true) {
+            if ($current->left_child != null) {
+                $parent = $current;
+                $current = $current->left_child;
+
+                continue;
+            }
+            if ($current->right_child != null) {
+
+                if ($parent == null) {
+                    $tmp = $this->root->value;
+                    $this->root = $current->right_child;
+                } else {
+                    $tmp = $parent->left_child->value;
+                    $parent->left_child = $current->right_child;
+                }
+                return $tmp;
+            } else {
+                if ($parent == null) {
+                    $tmp = $this->root->value;
+                    $this->root = null;
+                } else {
+                    $tmp = $parent->left_child->value;
+                    $parent->left_child = null;
+                }
+                return $tmp;
+            }
+        }
     }
 
     public function pop_last(): bool

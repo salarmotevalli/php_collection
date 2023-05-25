@@ -33,8 +33,8 @@ interface DataStruct
     // return length of DataStruct
     public function len(): int;
 
-    public function pop_first(): bool;
-    public function pop_last(): bool;
+    public function pop_first(): mixed;
+    public function pop_last(): mixed;
     public function remove(mixed $value);
     public function values(): array;
 }

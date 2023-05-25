@@ -117,5 +117,12 @@ test('pop_first_function', function () use ($numbers) {
     // after deleting first value, now the smallest value is 8
     expect($bst->first_value())->toBe(8);
 
+    // these pops going to pop the root node,
+    // so we test it again to make sure it works fine
+    $bst->pop_first();
+    $bst->pop_first();
+    $bst->pop_first();
+    expect($bst->first_value())->toBe(20);
+
     // TODO: process for deleting root node
 });
