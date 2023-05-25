@@ -124,6 +124,10 @@ class BSTSet implements DataStruct
 
     public function pop_first(): mixed
     {
+        if ($this->root == null) {
+            return null;
+        }
+
         $current = $this->root;
         $tmp = null;
         $parent = null;
