@@ -90,11 +90,11 @@ test('clear_function',          function () use ($numbers) {
     expect($bst->is_empty())->toBeTrue();
 });
 
-//test('values_function',         function () use ($numbers) {
-//    $bst = BSTSet::from($numbers);
-//    expect($bst->values())->toBe($numbers);
-//
-//});
+test('values_function',         function () use ($numbers) {
+    $bst = BSTSet::from($numbers);
+    expect($bst->values())->toBe($numbers);
+
+});
 
 test('len_function', function () use ($numbers) {
     $bst = BSTSet::from($numbers);

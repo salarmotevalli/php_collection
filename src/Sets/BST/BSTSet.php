@@ -10,6 +10,7 @@ class BSTSet implements DataStruct
     public ?Node $root = null;
 
     private int $len = 0;
+    private array $values = [];
 
     private function __construct()
     {
@@ -114,17 +115,21 @@ class BSTSet implements DataStruct
         $this->len = 0;
 
         // Count length
-        $this->traverse($this->root);
+        $this->traverse($this->root, function () {
+            ++$this->len;
+        });
 
         // Return length
         return $this->len;
     }
 
-    private function traverse($node) {
+    private function traverse($node, $closure = null) {
         if ($node == null) return;
-        $this->traverse($node->left_child);
-        ++$this->len;
-        $this->traverse($node->right_child);
+        $this->traverse($node->left_child, $closure);
+
+        if ($closure != null) $closure($node);
+
+        $this->traverse($node->right_child, $closure);
     }
 
     public function pop_first(): mixed
@@ -171,8 +176,7 @@ class BSTSet implements DataStruct
             return $tmp;
         }
     }
-
-
+    
     public function pop_last(): mixed
     {
         if ($this->is_empty()) {
@@ -225,20 +229,16 @@ class BSTSet implements DataStruct
 
     public function values(): array
     {
-        $values = [];
-
-        function traverse($node): void
-        {
-            if ($node == null) return;
-            traverse($node->left_child);
-            global $values;
-            array_push($values, $node->value);
-            traverse($node->right_child);
-        }
-
-        traverse($this->root);
-
-        return $values;
+        // Reset 
+        $this->values = [];
+        
+        // collect values
+        $this->traverse($this->root, function (Node $node = null) {
+            $this->values[] = $node->value;
+        });
+        
+        // Return values
+        return $this->values;
     }
 
     public function multi_insert(array $values): void
