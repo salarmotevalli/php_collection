@@ -12,14 +12,14 @@ $numbers = [
     30,
 ];
 
-test('new_static_function', function () {
+test('new_static_function',     function () {
     $bst = BSTSet::new();
 
     // new function has to make and return new instance of collection
     expect($bst)->toBeInstanceOf(BSTSet::class);
 });
 
-test('from_static_function', function () use ($numbers) {
+test('from_static_function',    function () use ($numbers) {
     $bst = BSTSet::from($numbers);
 
     // from function has to make and return new instance of collection with passed data
@@ -27,7 +27,7 @@ test('from_static_function', function () use ($numbers) {
     expect($bst->root->value)->toBe(10);
 });
 
-test('insert_function', function () {
+test('insert_function',         function () {
     $bst = BSTSet::new();
 
     // root is null after creating new collection
@@ -48,7 +48,7 @@ test('insert_function', function () {
 
 });
 
-test('multi_insert_function', function () use ($numbers) {
+test('multi_insert_function',   function () use ($numbers) {
     $bst = BSTSet::new();
 
     $bst->multi_insert($numbers);
@@ -59,20 +59,20 @@ test('multi_insert_function', function () use ($numbers) {
 //    expect($bst->len())->toBe(count($numbers));
 });
 
-test('last_value_function', function () use ($numbers) {
+test('last_value_function',     function () use ($numbers) {
    $bst = BSTSet::from($numbers);
 
     // largest number is 30 so last value should be 30
    expect($bst->last_value())->toBe(30);
 });
 
-test('first_value_function', function () use ($numbers) {
+test('first_value_function',    function () use ($numbers) {
    $bst = BSTSet::from($numbers);
 
    expect($bst->first_value())->toBe(5);
 });
 
-test('is_empty_function', function () {
+test('is_empty_function',       function () {
     $bst = BSTSet::new();
     expect($bst->is_empty())->toBeTrue();
 
@@ -82,7 +82,7 @@ test('is_empty_function', function () {
     expect($bst->is_empty())->toBeFalse();
 });
 
-test('clear_function', function () use ($numbers) {
+test('clear_function',          function () use ($numbers) {
     $bst = BSTSet::from($numbers);
     expect($bst->is_empty())->toBeFalse();
 
@@ -90,23 +90,23 @@ test('clear_function', function () use ($numbers) {
     expect($bst->is_empty())->toBeTrue();
 });
 
-//test('values_function', function () use ($numbers) {
+//test('values_function',         function () use ($numbers) {
 //    $bst = BSTSet::from($numbers);
 //    expect($bst->values())->toBe($numbers);
 //
 //});
 
-//test('len_function', function () use ($numbers) {
-//    $bst = BSTSet::from($numbers);
-//    expect($bst->len())->toBe(count($numbers));
-//
-//    $bst->insert(6);
-//    $bst->insert(130);
-//
-//    expect($bst->len())->toBe(count($numbers) + 2);
-//});
+test('len_function', function () use ($numbers) {
+    $bst = BSTSet::from($numbers);
+    expect($bst->len())->toBe(count($numbers));
 
-test('pop_first_function', function () use ($numbers) {
+    $bst->insert(6);
+    $bst->insert(130);
+
+    expect($bst->len())->toBe(count($numbers) + 2);
+});
+
+test('pop_first_function',      function () use ($numbers) {
     $bst = BSTSet::from($numbers);
 
     expect($bst->first_value())->toBe(5);
@@ -129,11 +129,9 @@ test('pop_first_function', function () use ($numbers) {
 
     // pop function returns null if tree is empty
     expect($bst->pop_first())->toBeNull();
-
-    // TODO: process for deleting root node
 });
 
-test('pop_last_function', function () use ($numbers) {
+test('pop_last_function',       function () use ($numbers) {
     $bst = BSTSet::from($numbers);
 
     expect($bst->last_value())->toBe(30);
@@ -156,6 +154,4 @@ test('pop_last_function', function () use ($numbers) {
 
     // pop function returns null if tree is empty
     expect($bst->pop_last())->toBeNull();
-
-    // TODO: process for deleting root node
 });

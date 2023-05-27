@@ -2,13 +2,14 @@
 
 namespace Salar\Sets\BST;
 
-use phpDocumentor\Reflection\Types\Null_;
 use Salar\Contract\DataStruct;
 use Salar\Contract\Node;
 
 class BSTSet implements DataStruct
 {
     public ?Node $root = null;
+
+    private int $len = 0;
 
     private function __construct()
     {
@@ -109,19 +110,21 @@ class BSTSet implements DataStruct
 
     public function len(): int
     {
-//        $GLOBALS['len'] = 0;
-//
-//        function traverse($node) {
-//            if ($node == null) return;
-//            traverse($node->left_child);
-//            $GLOBALS['len'] = $GLOBALS['len'] + 1;
-//            traverse($node->right_child);
-//        }
-//
-//        traverse($this->root);
-//
-//        return $GLOBALS['len'];
-        return 3;
+        // Reset length number
+        $this->len = 0;
+
+        // Count length
+        $this->traverse($this->root);
+
+        // Return length
+        return $this->len;
+    }
+
+    private function traverse($node) {
+        if ($node == null) return;
+        $this->traverse($node->left_child);
+        ++$this->len;
+        $this->traverse($node->right_child);
     }
 
     public function pop_first(): mixed
@@ -222,20 +225,20 @@ class BSTSet implements DataStruct
 
     public function values(): array
     {
-//        $values = array();
-//
-//        function traverse(?Node $node) use ($values): void
-//        {
-//            if ($node == null) return;
-//            traverse($node->left_child);
-//            $values[] = $node->value;
-//            traverse($node->right_child);
-//        };
-//
-//        traverse($this->root);
-//
-//        return $values;
-        return [];
+        $values = [];
+
+        function traverse($node): void
+        {
+            if ($node == null) return;
+            traverse($node->left_child);
+            global $values;
+            array_push($values, $node->value);
+            traverse($node->right_child);
+        }
+
+        traverse($this->root);
+
+        return $values;
     }
 
     public function multi_insert(array $values): void
