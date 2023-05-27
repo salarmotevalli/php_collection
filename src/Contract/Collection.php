@@ -15,8 +15,6 @@ interface Collection
 
     public function multi_insert(array $values): void;
 
-    // Append other DataStruct with self
-    public function append(array|self $data): self;
 
     // Clear DataStruct
     public function clear(): void;

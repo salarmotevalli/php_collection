@@ -103,7 +103,7 @@ test('values_function',         function () use ($numbers) {
 
 });
 
-test('len_function', function () use ($numbers) {
+test('len_function',            function () use ($numbers) {
     $bst = BSTSet::from($numbers);
     expect($bst->len())->toBe(count($numbers));
 
@@ -139,6 +139,7 @@ test('pop_first_function',      function () use ($numbers) {
 });
 
 test('pop_last_function',       function () use ($numbers) {
+
     $bst = BSTSet::from($numbers);
 
     expect($bst->last_value())->toBe(30);
@@ -161,4 +162,21 @@ test('pop_last_function',       function () use ($numbers) {
 
     // pop function returns null if tree is empty
     expect($bst->pop_last())->toBeNull();
+});
+
+test('remove_function',         function () use ($numbers) {
+    $bst = BSTSet::from($numbers);
+
+    // Remove returns the deleted element
+    expect($bst->remove(30))->toBe(30);
+
+    // Check is there 30 in the tree
+    expect(in_array(30 ,$bst->values()))->toBeFalse();
+
+    // any errors shouldn't occur when removing root node
+    $bst->remove(10);
+
+    // remove returns null if given element doesn't exist
+    expect($bst->remove(1234))->toBeNull();
+
 });

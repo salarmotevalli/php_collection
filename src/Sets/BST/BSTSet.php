@@ -63,11 +63,6 @@ class BSTSet implements Collection
         }
     }
 
-    public function append(array|Collection $data): static
-    {
-        return new static();
-    }
-
     public function clear(): void
     {
         unset($this->root->left_child, $this->root->right_child);
@@ -222,9 +217,9 @@ class BSTSet implements Collection
         }
     }
 
-    public function remove(mixed $value)
+    public function remove(mixed $value): mixed
     {
-        // TODO: Implement remove() method.
+        return 3;
     }
 
     public function values(): array
