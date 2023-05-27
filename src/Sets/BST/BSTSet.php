@@ -2,10 +2,10 @@
 
 namespace Salar\Sets\BST;
 
-use Salar\Contract\DataStruct;
+use Salar\Contract\Collection;
 use Salar\Contract\Node;
 
-class BSTSet implements DataStruct
+class BSTSet implements Collection
 {
     public ?Node $root = null;
 
@@ -63,7 +63,7 @@ class BSTSet implements DataStruct
         }
     }
 
-    public function append(array|DataStruct $data): static
+    public function append(array|Collection $data): static
     {
         return new static();
     }

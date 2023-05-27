@@ -3,7 +3,7 @@
 namespace Salar\Sets\BST;
 
 use phpDocumentor\Reflection\DocBlock\Tags\Return_;
-use Salar\Contract\DataStruct;
+use Salar\Contract\Collection;
 use Salar\Contract\Node;
 
 class BSTSetNode implements Node

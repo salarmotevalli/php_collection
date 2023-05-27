@@ -2,7 +2,7 @@
 
 namespace Salar\Contract;
 
-interface DataStruct
+interface Collection
 {
     // Create new
     public static function new(): self;
