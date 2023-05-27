@@ -92,7 +92,14 @@ test('clear_function',          function () use ($numbers) {
 
 test('values_function',         function () use ($numbers) {
     $bst = BSTSet::from($numbers);
-    expect($bst->values())->toBe($numbers);
+    expect($bst->values())->toBe([
+        5,
+        8,
+        10,
+        14,
+        20,
+        30,
+    ]);
 
 });
 
