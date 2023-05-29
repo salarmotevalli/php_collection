@@ -27,9 +27,7 @@ class BSTSet implements Collection
         $bst = new static();
 
         // insert values
-        foreach ($data as $value) {
-            $bst->insert($value);
-        }
+        $bst->multi_insert($data);
 
         // return bst
         return $bst;
@@ -60,6 +58,13 @@ class BSTSet implements Collection
 
             // switch on the child
             $current_node = $current_node->{$child};
+        }
+    }
+
+    public function multi_insert(array $values): void
+    {
+        foreach ($values as $value) {
+            $this->insert($value);
         }
     }
 
@@ -236,10 +241,5 @@ class BSTSet implements Collection
         return $this->values;
     }
 
-    public function multi_insert(array $values): void
-    {
-        foreach ($values as $value) {
-            $this->insert($value);
-        }
-    }
+
 }
