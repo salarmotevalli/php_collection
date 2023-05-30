@@ -170,11 +170,9 @@ test('remove_function',         function () use ($numbers) {
     // Remove returns the deleted element
     expect($bst->remove(30))->toBe(30);
 
-    // Check is there 30 in the tree
-    expect(in_array(30 ,$bst->values()))->toBeFalse();
-
     // any errors shouldn't occur when removing root node
     $bst->remove(10);
+    expect($bst->values())->not->toContain(10, 30);
 
     // remove returns null if given element doesn't exist
     expect($bst->remove(1234))->toBeNull();

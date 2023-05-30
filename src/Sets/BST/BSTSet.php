@@ -226,7 +226,7 @@ class BSTSet implements Collection
 
     public function remove(mixed $value): mixed
     {
-        return $this->_remove($this->root, null, $value);
+        return $this->_remove($value);
     }
 
     public function values(): array
@@ -243,86 +243,104 @@ class BSTSet implements Collection
         return $this->values;
     }
 
-    private function _remove(?Node $node, ?Node $parent, mixed $value)
+    private function _remove(mixed $value)
     {
-        if ($node == null) return null;
-        if ($node->value > $value) $this->_remove($node->left_child, $node, $value);
-        if ($node->value < $value) $this->_remove($node->right_child, $node, $value);
-        $tmp = $node->value;
+        $parent = null;
+        $current = $this->root;
 
-        // node has no children
-        if ($node->left_child == null && $node->right_child == null) {
-            if ($parent == null) {
-                $this->root =null;
-            } else {
-                if ($node->value > $parent->value) {
-                    // node is right child for it's parent
-                    $parent->right_child = null;
-                } else {
-                    // node is right child for it's parent
-                    $parent->left_child = null;
-                }
-            }
-            return $tmp;
-        }
-
-        // node has right child
-        if ($node->left_child == null) {
-            if ($parent == null) {
-                $this->root = $this->root->right_child;
-            } else {
-                if ($node->value > $parent->value) {
-                    // node is right child for it's parent
-                    $parent->right_child = $node->right_child;
-                } else {
-                    // node is right child for it's parent
-                    $parent->left_child = $node->right_child;
-                }
-            }
-            return $tmp;
-        }
-
-        // node has left child
-        if ($node->right_child == null) {
-            if ($parent == null) {
-                $this->root = $this->root->right_child;
-            } else {
-                if ($node->value > $parent->value) {
-                    // node is right child for it's parent
-                    $parent->right_child = $node->left_child;
-                } else {
-                    // node is right child for it's parent
-                    $parent->left_child = $node->left_child;
-                }
-            }
-            return $tmp;
-        }
-
-        // node has two children
-        $tmp_target_node = $node;
-        $tmp_smallest_right_node_parent = $node;
-
-        $current = $node->right_child;
         while (true) {
-            if ($current->left_node != null) {
-                $tmp_smallest_right_node_parent = $current;
-                $current = $current->left_node;
-            } else {
-                if ($current->right_child == null) {
-                    if ($parent == null) {
-                        $this->root->value = $current->value;
+
+            if ($current == null) return null;
+            if ($current->value > $value)
+            {
+                $parent = $current;
+                $current = $current->left_child;
+                continue;
+            }
+
+            if ($current->value < $value)
+            {
+                $parent = $current;
+                $current = $current->right_child;
+                continue;
+            }
+
+            $tmp = $current->value;
+
+            // node has no children
+            if ($current->left_child == null && $current->right_child == null) {
+                if ($parent == null) {
+                    $this->root =null;
+                } else {
+                    if ($current->value > $parent->value) {
+                        // node is right child for it's parent
+                        $parent->right_child = null;
                     } else {
-                        if ($node->value > $parent->value) {
-                            // node is right child for it's parent
-                            $parent->right_child->value = $current->value;
-                        } else {
-                            // node is left child for it's parent
-                            $parent->left_child->value = $current->value;
-                        }
-                        $tmp_smallest_right_node_parent->left_child == null;
+                        // node is right child for it's parent
+                        $parent->left_child = null;
                     }
                 }
                 return $tmp;
+            }
+
+            // node has right child
+            if ($current->left_child == null) {
+                if ($parent == null) {
+                    $this->root = $this->root->right_child;
+                } else {
+                    if ($current->value > $parent->value) {
+                        // node is right child for it's parent
+                        $parent->right_child = $current->right_child;
+                    } else {
+                        // node is right child for it's parent
+                        $parent->left_child = $current->right_child;
+                    }
+                }
+                return $tmp;
+            }
+
+            // node has left child
+            if ($current->right_child == null) {
+                if ($parent == null) {
+                    $this->root = $this->root->right_child;
+                } else {
+                    if ($current->value > $parent->value) {
+                        // node is right child for it's parent
+                        $parent->right_child = $current->left_child;
+                    } else {
+                        // node is right child for it's parent
+                        $parent->left_child = $current->left_child;
+                    }
+                }
+                return $tmp;
+            }
+
+            // node has two children
+            $tmp_target_node = $current;
+            $tmp_smallest_right_node_parent = $current;
+
+            $current_tmp = $current->right_child;
+            while (true) {
+                if ($current_tmp->left_child != null) {
+                    $tmp_smallest_right_node_parent = $current_tmp;
+                    $current_tmp = $current_tmp->left_child;
+                } else {
+                    if ($current_tmp->right_child == null) {
+                        if ($parent == null) {
+                            $this->root->value = $current_tmp->value;
+                        } else {
+                            if ($current->value > $parent->value) {
+                                // node is right child for it's parent
+                                $parent->right_child->value = $current_tmp->value;
+                            } else {
+                                // node is left child for it's parent
+                                $parent->left_child->value = $current_tmp->value;
+                            }
+                            $tmp_smallest_right_node_parent->left_child == null;
+                        }
+                    }
+                    return $tmp;
+                }
             }
         }
     }
