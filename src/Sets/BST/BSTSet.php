@@ -248,6 +248,7 @@ class BSTSet implements Collection
         if ($node == null) return null;
         if ($node->value > $value) $this->_remove($node->left_child, $node, $value);
         if ($node->value < $value) $this->_remove($node->right_child, $node, $value);
+        $tmp = $node->value;
 
         // node has no children
         if ($node->left_child == null && $node->right_child == null) {
@@ -262,7 +263,7 @@ class BSTSet implements Collection
                     $parent->left_child = null;
                 }
             }
-            return;
+            return $tmp;
         }
 
         // node has right child
@@ -278,7 +279,7 @@ class BSTSet implements Collection
                     $parent->left_child = $node->right_child;
                 }
             }
-            return;
+            return $tmp;
         }
 
         // node has left child
@@ -294,7 +295,7 @@ class BSTSet implements Collection
                     $parent->left_child = $node->left_child;
                 }
             }
-            return;
+            return $tmp;
         }
 
         // node has two children
@@ -321,7 +322,7 @@ class BSTSet implements Collection
                         $tmp_smallest_right_node_parent->left_child == null;
                     }
                 }
-                return;
+                return $tmp;
             }
         }
     }
