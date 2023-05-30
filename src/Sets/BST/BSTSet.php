@@ -252,7 +252,7 @@ class BSTSet implements Collection
         // node has no children
         if ($node->left_child == null && $node->right_child == null) {
             if ($parent == null) {
-                $this->root == null;
+                $this->root =null;
             } else {
                 if ($node->value > $parent->value) {
                     // node is right child for it's parent
@@ -262,6 +262,7 @@ class BSTSet implements Collection
                     $parent->left_child = null;
                 }
             }
+            return;
         }
 
         // node has right child
@@ -277,7 +278,7 @@ class BSTSet implements Collection
                     $parent->left_child = $node->right_child;
                 }
             }
-
+            return;
         }
 
         // node has left child
@@ -293,10 +294,36 @@ class BSTSet implements Collection
                     $parent->left_child = $node->left_child;
                 }
             }
-
+            return;
         }
 
         // node has two children
+        $tmp_target_node = $node;
+        $tmp_smallest_right_node_parent = $node;
+
+        $current = $node->right_child;
+        while (true) {
+            if ($current->left_node != null) {
+                $tmp_smallest_right_node_parent = $current;
+                $current = $current->left_node;
+            } else {
+                if ($current->right_child == null) {
+                    if ($parent == null) {
+                        $this->root->value = $current->value;
+                    } else {
+                        if ($node->value > $parent->value) {
+                            // node is right child for it's parent
+                            $parent->right_child->value = $current->value;
+                        } else {
+                            // node is left child for it's parent
+                            $parent->left_child->value = $current->value;
+                        }
+                        $tmp_smallest_right_node_parent->left_child == null;
+                    }
+                }
+                return;
+            }
+        }
     }
 
 
