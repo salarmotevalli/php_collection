@@ -251,6 +251,7 @@ class BSTSet implements Collection
         while (true) {
 
             if ($current == null) return null;
+
             if ($current->value > $value)
             {
                 $parent = $current;
@@ -266,54 +267,37 @@ class BSTSet implements Collection
             }
 
             $tmp = $current->value;
-
+            $data = [];
             // node has no children
             if ($current->left_child == null && $current->right_child == null) {
-                if ($parent == null) {
-                    $this->root =null;
-                } else {
-                    if ($current->value > $parent->value) {
-                        // node is right child for it's parent
-                        $parent->right_child = null;
-                    } else {
-                        // node is right child for it's parent
-                        $parent->left_child = null;
-                    }
-                }
+                $data = [
+                    'root' => null,
+                    'children' => null,
+                ];
+                $this->set_node($parent, $data, $current);
                 return $tmp;
             }
 
             // node has right child
             if ($current->left_child == null) {
-                if ($parent == null) {
-                    $this->root = $this->root->right_child;
-                } else {
-                    if ($current->value > $parent->value) {
-                        // node is right child for it's parent
-                        $parent->right_child = $current->right_child;
-                    } else {
-                        // node is right child for it's parent
-                        $parent->left_child = $current->right_child;
-                    }
-                }
+                $data = [
+                    'root' => $this->root->right_child,
+                    'children' => $current->right_child,
+                ];
+                $this->set_node($parent, $data, $current);
                 return $tmp;
             }
 
             // node has left child
             if ($current->right_child == null) {
-                if ($parent == null) {
-                    $this->root = $this->root->right_child;
-                } else {
-                    if ($current->value > $parent->value) {
-                        // node is right child for it's parent
-                        $parent->right_child = $current->left_child;
-                    } else {
-                        // node is right child for it's parent
-                        $parent->left_child = $current->left_child;
-                    }
-                }
+                $data = [
+                    'root' => $this->root->right_child,
+                    'children' => $current->left_child,
+                ];
+                $this->set_node($parent, $data, $current);
                 return $tmp;
             }
+
 
             // node has two children
             $tmp_target_node = $current;
@@ -341,6 +325,27 @@ class BSTSet implements Collection
                     }
                     return $tmp;
                 }
+            }
+        }
+    }
+
+    /**
+     * @param Node|null $parent
+     * @param array $data
+     * @param Node $current
+     * @return void
+     */
+    public function set_node(?Node $parent, array $data, Node $current): void
+    {
+        if ($parent == null) {
+            $this->root = $data['root'];
+        } else {
+            if ($current->value > $parent->value) {
+                // node is right child for it's parent
+                $parent->right_child = $data['children'];
+            } else {
+                // node is right child for it's parent
+                $parent->left_child = $data['children'];
             }
         }
     }
