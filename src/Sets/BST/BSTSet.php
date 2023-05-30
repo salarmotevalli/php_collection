@@ -124,7 +124,8 @@ class BSTSet implements Collection
         return $this->len;
     }
 
-    private function traverse(?Node $node, $closure = null) {
+    private function traverse(?Node $node, $closure = null)
+    {
         if ($node == null) return;
         $this->traverse($node->left_child, $closure);
 
@@ -252,79 +253,59 @@ class BSTSet implements Collection
 
             if ($current == null) return null;
 
-            if ($current->value > $value)
-            {
+            if ($current->value != $value) {
                 $parent = $current;
-                $current = $current->left_child;
+                $current = match (true) {
+                    $current->value > $value => $current->left_child,
+                    $current->value < $value => $current->right_child,
+                };
                 continue;
-            }
+           }
 
-            if ($current->value < $value)
-            {
-                $parent = $current;
-                $current = $current->right_child;
-                continue;
-            }
-
+            // It's going to return as deleted value
             $tmp = $current->value;
-            $data = [];
+
             // node has no children
-            if ($current->left_child == null && $current->right_child == null) {
-                $data = [
-                    'root' => null,
-                    'children' => null,
-                ];
+            if (!($current->left_child && $current->right_child)) {
+                $data = match (true) {
+                    // Has no children
+                    !$current->left_child && !$current->right_child => ['root' => null, 'children' => null],
+                    // Has right children
+                    !$current->left_child => ['root' => $current->right_child, 'children' => $current->right_child],
+                    // Has left children
+                    !$current->right_child => ['root' => $current->right_child, 'children' => $current->left_child],
+                };
+
                 $this->set_node($parent, $data, $current);
                 return $tmp;
             }
-
-            // node has right child
-            if ($current->left_child == null) {
-                $data = [
-                    'root' => $this->root->right_child,
-                    'children' => $current->right_child,
-                ];
-                $this->set_node($parent, $data, $current);
-                return $tmp;
-            }
-
-            // node has left child
-            if ($current->right_child == null) {
-                $data = [
-                    'root' => $this->root->right_child,
-                    'children' => $current->left_child,
-                ];
-                $this->set_node($parent, $data, $current);
-                return $tmp;
-            }
-
 
             // node has two children
-            $tmp_target_node = $current;
-            $tmp_smallest_right_node_parent = $current;
-
             $current_tmp = $current->right_child;
+            $current_tmp_parent = null;
+
             while (true) {
                 if ($current_tmp->left_child != null) {
-                    $tmp_smallest_right_node_parent = $current_tmp;
                     $current_tmp = $current_tmp->left_child;
+                    continue;
+                } elseif ($current_tmp->right_child == null) {
+
+                    $data = [
+                        'root' => $current_tmp,
+                        'children' => $current_tmp,
+                    ];
+
+                    $this->set_node($current_tmp_parent, $data, $current_tmp);
+
                 } else {
-                    if ($current_tmp->right_child == null) {
-                        if ($parent == null) {
-                            $this->root->value = $current_tmp->value;
-                        } else {
-                            if ($current->value > $parent->value) {
-                                // node is right child for it's parent
-                                $parent->right_child->value = $current_tmp->value;
-                            } else {
-                                // node is left child for it's parent
-                                $parent->left_child->value = $current_tmp->value;
-                            }
-                            $tmp_smallest_right_node_parent->left_child == null;
-                        }
-                    }
-                    return $tmp;
+                    $data = [
+                        'root' => $current_tmp,
+                        'children' => $current_tmp,
+                    ];
+
+                    $this->set_node($parent, $data, $current_tmp);
                 }
+                return $tmp;
             }
         }
     }

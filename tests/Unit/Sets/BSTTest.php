@@ -177,4 +177,15 @@ test('remove_function',         function () use ($numbers) {
     // remove returns null if given element doesn't exist
     expect($bst->remove(1234))->toBeNull();
 
+    $bst2 = BSTSet::from([
+        100, 200, 300, 400, 500,
+        150, 250, 175, 127,
+        50, 25, 10, 1,
+        75, 35, 15, 5
+    ]);
+
+    $bst2->remove(250);
+    $bst2->remove(200);
+
+    expect(in_array(200 ,$bst2->values()))->toBeFalse();
 });
