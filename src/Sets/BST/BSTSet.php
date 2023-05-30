@@ -2,6 +2,7 @@
 
 namespace Salar\Sets\BST;
 
+use mysql_xdevapi\CollectionRemove;
 use Salar\Contract\Collection;
 use Salar\Contract\Node;
 
@@ -123,10 +124,11 @@ class BSTSet implements Collection
         return $this->len;
     }
 
-    private function traverse($node, $closure = null) {
+    private function traverse(?Node $node, $closure = null) {
         if ($node == null) return;
         $this->traverse($node->left_child, $closure);
 
+        // Execute closure if it's set
         if ($closure != null) $closure($node);
 
         $this->traverse($node->right_child, $closure);
@@ -176,7 +178,7 @@ class BSTSet implements Collection
             return $tmp;
         }
     }
-    
+
     public function pop_last(): mixed
     {
         if ($this->is_empty()) {
@@ -224,21 +226,77 @@ class BSTSet implements Collection
 
     public function remove(mixed $value): mixed
     {
-        return 3;
+        return $this->_remove($this->root, null, $value);
     }
 
     public function values(): array
     {
         // Reset 
         $this->values = [];
-        
+
         // collect values
         $this->traverse($this->root, function (Node $node = null) {
             $this->values[] = $node->value;
         });
-        
+
         // Return values
         return $this->values;
+    }
+
+    private function _remove(?Node $node, ?Node $parent, mixed $value)
+    {
+        if ($node == null) return null;
+        if ($node->value > $value) $this->_remove($node->left_child, $node, $value);
+        if ($node->value < $value) $this->_remove($node->right_child, $node, $value);
+
+        // node has no children
+        if ($node->left_child == null && $node->right_child == null) {
+            if ($parent == null) {
+                $this->root == null;
+            } else {
+                if ($node->value > $parent->value) {
+                    // node is right child for it's parent
+                    $parent->right_child = null;
+                } else {
+                    // node is right child for it's parent
+                    $parent->left_child = null;
+                }
+            }
+        }
+
+        // node has right child
+        if ($node->left_child == null) {
+            if ($parent == null) {
+                $this->root = $this->root->right_child;
+            } else {
+                if ($node->value > $parent->value) {
+                    // node is right child for it's parent
+                    $parent->right_child = $node->right_child;
+                } else {
+                    // node is right child for it's parent
+                    $parent->left_child = $node->right_child;
+                }
+            }
+
+        }
+
+        // node has left child
+        if ($node->right_child == null) {
+            if ($parent == null) {
+                $this->root = $this->root->right_child;
+            } else {
+                if ($node->value > $parent->value) {
+                    // node is right child for it's parent
+                    $parent->right_child = $node->left_child;
+                } else {
+                    // node is right child for it's parent
+                    $parent->left_child = $node->left_child;
+                }
+            }
+
+        }
+
+        // node has two children
     }
 
 
