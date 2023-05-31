@@ -56,7 +56,7 @@ test('multi_insert_function',   function () use ($numbers) {
     // root is equal to first inserted node
     expect($bst->root)->toBeInstanceOf(Node::class);
     expect($bst->root->value)->toBe(10);
-//    expect($bst->len())->toBe(count($numbers));
+    expect($bst->len())->toBe(count($numbers));
 });
 
 test('last_value_function',     function () use ($numbers) {

@@ -53,9 +53,11 @@ class BSTMap implements MapCollection, Collection
         }
     }
 
-    public function multi_insert(array $values): void
+    public function multi_insert(array $items): void
     {
-        // TODO: Implement multi_insert() method.
+        foreach ($items as $key => $value) {
+            $this->insert($key, $value);
+        }
     }
 
     public function clear(): void

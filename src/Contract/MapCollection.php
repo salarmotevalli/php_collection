@@ -13,7 +13,7 @@ interface MapCollection
     // Insert Node
     public function insert(mixed $key, mixed $value): void;
 
-    public function multi_insert(array $values): void;
+    public function multi_insert(array $items): void;
 
 
     // Clear DataStruct

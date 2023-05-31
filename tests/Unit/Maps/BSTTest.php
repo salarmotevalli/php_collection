@@ -5,9 +5,9 @@ use Salar\Maps\BST\BSTMap;
 use Salar\Sets\BST\BSTSet;
 
 $items = [
+    'Nariman' => 'Talebi',
     'Salar' => 'Motevalli',
     'Goli' => 'Heydary',
-    'Nariman' => 'Talebi',
     'Shayan' => 'Bahadory',
     'Mahan' => 'Matani',
     'Sina' => 'Saadatfar',
@@ -39,4 +39,15 @@ test('insert_function', function () {
 
     expect($bst->root->left_child->value)->toBe('Heydari');
     expect($bst->root->right_child->value)->toBe('Motevalli');
+});
+
+test('multi_insert_function',   function () use ($items) {
+    $bst = BSTMap::new();
+
+    $bst->multi_insert($items);
+
+    // root is equal to first inserted node
+    expect($bst->root)->toBeInstanceOf(Node::class);
+    expect($bst->root->value)->toBe('Talebi');
+//    expect($bst->len())->toBe(count($numbers));
 });
