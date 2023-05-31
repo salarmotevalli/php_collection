@@ -5,6 +5,7 @@ namespace Salar\Maps\BST;
 use Salar\Contract\Collection;
 use Salar\Contract\MapCollection;
 use Salar\Contract\Node;
+use Salar\Sets\BST\BSTSetNode;
 
 class BSTMap implements MapCollection, Collection
 {
@@ -26,7 +27,30 @@ class BSTMap implements MapCollection, Collection
 
     public function insert(mixed $key, mixed $value): void
     {
-        // TODO: Implement insert() method.
+        // create new node
+        $node = new BSTMapNode($key, $value);
+
+        // set as root if node is the first inserted element
+        // then return
+        if (!$this->root) {
+            $this->root = $node;
+            return;
+        }
+
+        $current_node = $this->root;
+        while (true) {
+            // determine which child should process
+            $child = $key < $current_node->key ? 'left_child' : 'right_child';
+
+            // set entry value as child if child equal to null
+            if ($current_node->{$child} == null) {
+                $current_node->{$child} = $node;
+                break;
+            }
+
+            // switch on the child
+            $current_node = $current_node->{$child};
+        }
     }
 
     public function multi_insert(array $values): void

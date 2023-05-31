@@ -21,7 +21,7 @@ test('new_static_function',     function () {
 });
 
 test('insert_function', function () {
-    $bst = BSTSet::new();
+    $bst = BSTMap::new();
 
     // root is null after creating new collection
     expect($bst->root)->toBeNull();
@@ -31,6 +31,7 @@ test('insert_function', function () {
     // root is equal to first inserted node
     expect($bst->root)->toBeInstanceOf(Node::class);
     expect($bst->root->value)->toBe('Talebi');
+    expect($bst->root->key)->toBe('Nariman');
 
     // after inserting second value, the root node shouldn't be changed
     $bst->insert('Salar', 'Motevalli');
