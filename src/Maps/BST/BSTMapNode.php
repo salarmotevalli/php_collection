@@ -4,7 +4,7 @@ namespace Salar\Maps\BST;
 
 use Salar\Contract\Node;
 
-class BSTMapNode implements \Salar\Contract\Node
+class BSTMapNode implements Node
 {
     public function __construct(
         public mixed $key,

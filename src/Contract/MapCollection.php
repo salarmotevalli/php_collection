@@ -15,18 +15,19 @@ interface MapCollection
 
     public function multi_insert(array $items): void;
 
-
     // Clear DataStruct
     public function clear(): void;
 
     // Get first Node
-    public function first_value(): mixed;
+    public function first_value(): mixed;    // Get last Node
+    public function last_value(): mixed;
+    public function first_key(): mixed;
+    public function last_key(): mixed;
 
     // Is Btree empty?
     public function is_empty(): bool;
 
-        // Get last Node
-    public function last_value(): mixed;
+
 
     // return length of DataStruct
     public function len(): int;
@@ -35,4 +36,6 @@ interface MapCollection
     public function pop_last(): mixed;
     public function remove(mixed $value);
     public function values(): array;
+    public function keys(): array;
+    public function all(): array;
 }

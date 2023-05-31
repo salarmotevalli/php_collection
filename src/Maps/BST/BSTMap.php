@@ -9,7 +9,13 @@ use Salar\Sets\BST\BSTSetNode;
 
 class BSTMap implements MapCollection, Collection
 {
+    public array $values = [];
+    public array $keys = [];
+    public array $all = [];
+
     public ?Node $root = null;
+
+    private int $len = 0;
 
     private function __construct()
     {
@@ -75,7 +81,17 @@ class BSTMap implements MapCollection, Collection
 
     public function first_value(): mixed
     {
-        // TODO: Implement first_value() method.
+        // return null if slice is empty
+        if ($this->root == null) return null;
+
+        $current = $this->root;
+        while (true) {
+            // return if node is the last right child
+            if ($current->left_child == null) return $current->value;
+
+            // set as current node
+            $current = $current->left_child;
+        }
     }
 
     public function is_empty(): bool
@@ -85,12 +101,42 @@ class BSTMap implements MapCollection, Collection
 
     public function last_value(): mixed
     {
-        // TODO: Implement last_value() method.
+        // return null if slice is empty
+        if ($this->root == null) return null;
+
+        $current = $this->root;
+        while (true) {
+            // return if node is the last right child
+            if ($current->right_child == null) return $current->value;
+
+            // set as current node
+            $current = $current->right_child;
+        }
     }
 
     public function len(): int
     {
-        // TODO: Implement len() method.
+        // Reset length number
+        $this->len = 0;
+
+        // Count length
+        $this->traverse($this->root, function () {
+            ++$this->len;
+        });
+
+        // Return length
+        return $this->len;
+    }
+
+    private function traverse(?Node $node, $closure = null)
+    {
+        if ($node == null) return;
+        $this->traverse($node->left_child, $closure);
+
+        // Execute closure if it's set
+        if ($closure != null) $closure($node);
+
+        $this->traverse($node->right_child, $closure);
     }
 
     public function pop_first(): mixed
@@ -110,6 +156,73 @@ class BSTMap implements MapCollection, Collection
 
     public function values(): array
     {
-        // TODO: Implement values() method.
+        // Reset
+        $this->values = [];
+
+        // collect values
+        $this->traverse($this->root, function (Node $node = null) {
+            $this->values[] = $node->value;
+        });
+
+        // Return values
+        return $this->values;
+    }
+
+    public function keys(): array
+    {
+        // Reset
+        $this->keys = [];
+
+        // collect values
+        $this->traverse($this->root, function (Node $node = null) {
+            $this->keys[] = $node->key;
+        });
+
+        // Return values
+        return $this->keys;
+    }
+
+    public function all(): array
+    {
+        // Reset
+        $this->all = [];
+
+        // collect values
+        $this->traverse($this->root, function (Node $node = null) {
+            $this->all[$node->key] = $node->value;
+        });
+
+        // Return values
+        return $this->all;
+    }
+
+    public function first_key(): mixed
+    {
+        // return null if slice is empty
+        if ($this->root == null) return null;
+
+        $current = $this->root;
+        while (true) {
+            // return if node is the last right child
+            if ($current->left_child == null) return $current->key;
+
+            // set as current node
+            $current = $current->left_child;
+        }
+    }
+
+    public function last_key(): mixed
+    {
+        // return null if slice is empty
+        if ($this->root == null) return null;
+
+        $current = $this->root;
+        while (true) {
+            // return if node is the last right child
+            if ($current->right_child == null) return $current->key;
+
+            // set as current node
+            $current = $current->right_child;
+        }
     }
 }
