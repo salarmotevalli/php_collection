@@ -72,11 +72,11 @@ test('multi_insert_function',   function () use ($items) {
 //    expect($bst->len())->toBe(count($numbers));
 });
 
-//test('clear_function',          function () use ($items) {
-//    $bst = BSTSet::from($items);
-//    expect($bst->is_empty())->toBeFalse();
-//
-//    $bst->clear();
-//    expect($bst->is_empty())->toBeTrue();
-//});
+test('clear_function',          function () use ($items) {
+    $bst = BSTSet::from($items);
+    expect($bst->is_empty())->toBeFalse();
+
+    $bst->clear();
+    expect($bst->is_empty())->toBeTrue();
+});
 
