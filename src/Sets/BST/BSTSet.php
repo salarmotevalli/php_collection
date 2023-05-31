@@ -2,11 +2,11 @@
 
 namespace Salar\Sets\BST;
 
-use mysql_xdevapi\CollectionRemove;
 use Salar\Contract\Collection;
 use Salar\Contract\Node;
+use Salar\Contract\SetCollection;
 
-class BSTSet implements Collection
+class BSTSet implements SetCollection, Collection
 {
     public ?Node $root = null;
 
@@ -17,12 +17,12 @@ class BSTSet implements Collection
     {
     }
 
-    public static function new(): static
+    public static function new(): Collection
     {
         return new static();
     }
 
-    public static function from(array $data): static
+    public static function from(array $data): Collection
     {
         // create new bst
         $bst = new static();
@@ -330,6 +330,4 @@ class BSTSet implements Collection
             }
         }
     }
-
-
 }

@@ -16,3 +16,6 @@ $bst->insert(23);
 $bst->insert(2);
 
 $bst->values(); // returns: [2, 10, 23]
+```
+_________
+
