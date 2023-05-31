@@ -20,9 +20,16 @@ class BSTMap implements MapCollection, Collection
         return new static();
     }
 
-    public static function from(array $data): Collection
+    public static function from(array $items): Collection
     {
-        // TODO: Implement from() method.
+        // create new bst
+        $bst = new static();
+
+        // insert values
+        $bst->multi_insert($items);
+
+        // return bst
+        return $bst;
     }
 
     public function insert(mixed $key, mixed $value): void
@@ -62,7 +69,8 @@ class BSTMap implements MapCollection, Collection
 
     public function clear(): void
     {
-        // TODO: Implement clear() method.
+        unset($this->root->left_child, $this->root->right_child);
+        $this->root = null;
     }
 
     public function first_value(): mixed
@@ -72,7 +80,7 @@ class BSTMap implements MapCollection, Collection
 
     public function is_empty(): bool
     {
-        // TODO: Implement is_empty() method.
+        return $this->root == null;
     }
 
     public function last_value(): mixed

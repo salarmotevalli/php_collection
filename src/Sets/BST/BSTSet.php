@@ -22,13 +22,13 @@ class BSTSet implements SetCollection, Collection
         return new static();
     }
 
-    public static function from(array $data): Collection
+    public static function from(array $values): Collection
     {
         // create new bst
         $bst = new static();
 
         // insert values
-        $bst->multi_insert($data);
+        $bst->multi_insert($values);
 
         // return bst
         return $bst;

@@ -8,7 +8,7 @@ interface SetCollection
     public static function new(): Collection;
 
     // Create with default value
-    public static function from(array $data): Collection;
+    public static function from(array $values): Collection;
 
     // Insert Node
     public function insert(mixed $value): void;

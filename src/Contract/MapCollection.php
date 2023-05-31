@@ -8,7 +8,7 @@ interface MapCollection
     public static function new(): Collection;
 
     // Create with default value
-    public static function from(array $data): Collection;
+    public static function from(array $items): Collection;
 
     // Insert Node
     public function insert(mixed $key, mixed $value): void;
