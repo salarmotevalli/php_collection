@@ -138,3 +138,46 @@ test('all_function', function () use ($items) {
     ]);
 
 });
+
+test('pop_first_function',              function () use ($items) {
+    $bst = BSTMap::from($items);
+
+    expect($bst->first_value())->toBe('Heydary');
+
+    // pop function returns deleted value
+    expect($bst->pop_first())->toBe('Heydary');
+
+    // after deleting first value, now the smallest value is 8
+    expect($bst->first_value())->toBe('Matani');
+
+});
+
+test('pop_last_function',               function () use ($items) {
+
+    $bst = BSTMap::from($items);
+
+    expect($bst->last_value())->toBe('Saadatfar');
+
+    // pop function returns deleted value
+    expect($bst->pop_last())->toBe('Saadatfar');
+
+    // after deleting first value, now the smallest value is 8
+    expect($bst->last_value())->toBe('Motevalli');
+
+});
+
+test('remove_function',                 function () use ($items) {
+    $bst = BSTMap::from($items);
+
+    // Remove returns the deleted element
+    expect($bst->remove('Salar'))->toBe('Motevalli');
+
+    // any errors shouldn't occur when removing root node
+    $bst->remove('Nariman');
+    expect(in_array('Nariman', $bst->keys()))->toBeFalse();
+    expect(in_array('Salar', $bst->keys()))->toBeFalse();
+
+    // remove returns null if given element doesn't exist
+    expect($bst->remove('Farzin'))->toBeNull();
+
+});
