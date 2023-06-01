@@ -2,6 +2,7 @@
 
 namespace Salar\Sets\BST;
 
+use phpDocumentor\Reflection\DocBlock\Tags\Var_;
 use Salar\Contract\Collection;
 use Salar\Contract\Node;
 use Salar\Contract\SetCollection;
@@ -225,11 +226,6 @@ class BSTSet implements SetCollection, Collection
         }
     }
 
-    public function remove(mixed $value): mixed
-    {
-        return $this->_remove($value);
-    }
-
     public function values(): array
     {
         // Reset 
@@ -244,11 +240,16 @@ class BSTSet implements SetCollection, Collection
         return $this->values;
     }
 
+    public function remove(mixed $value): mixed
+    {
+        return $this->_remove($value);
+    }
     private function _remove(mixed $value)
     {
         $parent = null;
         $current = $this->root;
 
+        // Find target
         while (true) {
 
             if ($current == null) return null;
@@ -265,7 +266,7 @@ class BSTSet implements SetCollection, Collection
             // It's going to return as deleted value
             $tmp = $current->value;
 
-            // node has no children
+            // node doesn't have two children
             if (!($current->left_child && $current->right_child)) {
                 $data = match (true) {
                     // Has no children
@@ -273,7 +274,7 @@ class BSTSet implements SetCollection, Collection
                     // Has right children
                     !$current->left_child => ['root' => $current->right_child, 'children' => $current->right_child],
                     // Has left children
-                    !$current->right_child => ['root' => $current->right_child, 'children' => $current->left_child],
+                    !$current->right_child => ['root' => $current->left_child, 'children' => $current->left_child],
                 };
 
                 $this->set_node($parent, $data, $current);
@@ -289,33 +290,32 @@ class BSTSet implements SetCollection, Collection
                     $current_tmp = $current_tmp->left_child;
                     continue;
                 } elseif ($current_tmp->right_child == null) {
-
                     $data = [
-                        'root' => $current_tmp,
-                        'children' => $current_tmp,
+                        'root' => null,
+                        'children' => null,
                     ];
+
+                    // Replace the smallest value after target with target
+                    $current->value = $current_tmp->value;
 
                     $this->set_node($current_tmp_parent, $data, $current_tmp);
-
                 } else {
                     $data = [
-                        'root' => $current_tmp,
-                        'children' => $current_tmp,
+                        'root' => $current_tmp->right_child,
+                        'children' => $current_tmp->right_child,
                     ];
 
-                    $this->set_node($parent, $data, $current_tmp);
+                    // Replace the smallest value after target with target
+                    $current->value = $current_tmp->value;
+
+                    $this->set_node($current_tmp_parent, $data, $current_tmp);
                 }
+
                 return $tmp;
             }
         }
     }
 
-    /**
-     * @param Node|null $parent
-     * @param array $data
-     * @param Node $current
-     * @return void
-     */
     public function set_node(?Node $parent, array $data, Node $current): void
     {
         if ($parent == null) {
@@ -330,4 +330,5 @@ class BSTSet implements SetCollection, Collection
             }
         }
     }
+
 }

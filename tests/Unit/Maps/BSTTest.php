@@ -162,7 +162,7 @@ test('pop_last_function',               function () use ($items) {
     expect($bst->pop_last())->toBe('Saadatfar');
 
     // after deleting first value, now the smallest value is 8
-    expect($bst->last_value())->toBe('Motevalli');
+    expect($bst->last_value())->toBe('Bahadory');
 
 });
 

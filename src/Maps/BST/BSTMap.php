@@ -141,17 +141,180 @@ class BSTMap implements MapCollection, Collection
 
     public function pop_first(): mixed
     {
-        // TODO: Implement pop_first() method.
+        if ($this->is_empty()) return null;
+
+        $current = $this->root;
+        $parent = null;
+
+        while (true) {
+            // Skip if node has left child
+            if ($current->left_child != null) {
+
+                // Set as parent and current
+                $parent = $current;
+                $current = $current->left_child;
+
+                continue;
+            }
+
+            // Check the node has right child
+            if ($current->right_child != null) {
+
+                // Check the node has parent or node is root node
+                if ($parent == null) {
+                    $tmp = $this->root->value;
+                    $this->root = $current->right_child;
+                } else {
+                    $tmp = $parent->left_child->value;
+                    $parent->left_child = $current->right_child;
+                }
+            } else {
+                if ($parent == null) {
+                    $tmp = $this->root->value;
+                    $this->root = null;
+                } else {
+                    $tmp = $parent->left_child->value;
+                    $parent->left_child = null;
+                }
+            }
+
+            return $tmp;
+        }
     }
 
     public function pop_last(): mixed
     {
-        // TODO: Implement pop_last() method.
+        if ($this->is_empty()) return null;
+
+
+        $current = $this->root;
+        $parent = null;
+
+        while (true) {
+            // Skip if node has left child
+            if ($current->right_child != null) {
+
+                // Set as parent and current
+                $parent = $current;
+                $current = $current->right_child;
+
+                continue;
+            }
+
+            // Check the node has right child
+            if ($current->left_child != null) {
+
+                // Check the node has parent or node is root node
+                if ($parent == null) {
+                    $tmp = $this->root->value;
+                    $this->root = $current->left_child;
+                } else {
+                    $tmp = $parent->right_child->value;
+                    $parent->right_child = $current->left_child;
+                }
+            } else {
+                if ($parent == null) {
+                    $tmp = $this->root->value;
+                    $this->root = null;
+                } else {
+                    $tmp = $parent->right_child->value;
+                    $parent->right_child = null;
+                }
+            }
+
+            return $tmp;
+        }    }
+
+    public function remove(mixed $key): mixed
+    {
+        return $this->_remove($key);
     }
 
-    public function remove(mixed $value)
+    private function _remove(mixed $key)
     {
-        // TODO: Implement remove() method.
+        $parent = null;
+        $current = $this->root;
+
+        while (true) {
+
+            if ($current == null) return null;
+
+            if ($current->key != $key) {
+                $parent = $current;
+                $current = match (true) {
+                    $current->key > $key => $current->left_child,
+                    $current->key < $key => $current->right_child,
+                };
+                continue;
+            }
+
+            // It's going to return as deleted value
+            $tmp = $current->value;
+
+            // node doesn't have two children
+            if (!($current->left_child && $current->right_child)) {
+                $data = match (true) {
+                    // Has no children
+                    !$current->left_child && !$current->right_child => ['root' => null, 'children' => null],
+                    // Has right children
+                    !$current->left_child => ['root' => $current->right_child, 'children' => $current->right_child],
+                    // Has left children
+                    !$current->right_child => ['root' => $current->right_child, 'children' => $current->left_child],
+                };
+
+                $this->set_node($parent, $data, $current);
+                return $tmp;
+            }
+
+            // node has two children
+            $current_tmp = $current->right_child;
+            $current_tmp_parent = null;
+
+            while (true) {
+                if ($current_tmp->left_child != null) {
+                    $current_tmp = $current_tmp->left_child;
+                    continue;
+                } elseif ($current_tmp->right_child == null) {
+
+                    $data = [
+                        'root' => null,
+                        'children' => null,
+                    ];
+
+                    // Replace the smallest value after target with target
+                    $current->value = $current_tmp->value;
+
+                    $this->set_node($current_tmp_parent, $data, $current_tmp);
+
+                } else {
+                    $data = [
+                        'root' => $current_tmp->right_child,
+                        'children' => $current_tmp->right_child,
+                    ];
+
+                    // Replace the smallest value after target with target
+                    $current->value = $current_tmp->value;
+
+                    $this->set_node($current_tmp_parent, $data, $current_tmp);
+                }
+                return $tmp;
+            }
+        }
+    }
+
+    public function set_node(?Node $parent, array $data, Node $current): void
+    {
+        if ($parent == null) {
+            $this->root = $data['root'];
+        } else {
+            if ($current->value > $parent->value) {
+                // node is right child for it's parent
+                $parent->right_child = $data['children'];
+            } else {
+                // node is right child for it's parent
+                $parent->left_child = $data['children'];
+            }
+        }
     }
 
     public function values(): array
