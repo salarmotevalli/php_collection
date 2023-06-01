@@ -331,4 +331,33 @@ class BSTSet implements SetCollection, Collection
         }
     }
 
+    public function in_collection(...$values): bool
+    {
+        foreach ($values as $value) {
+            if (!$this->is_there($value)) return false;
+        }
+
+        // All entries exist
+        return true;
+    }
+
+    private function is_there($value): bool
+    {
+        $current = $this->root;
+        while ($current !== null) {
+
+            // Collection has value
+            if ($current->value === $value) {
+                return true;
+            }
+
+            // Check and set nodes
+            $current = match (true) {
+                $current->value > $value => $current->left_child,
+                $current->value < $value => $current->right_child,
+            };
+        }
+
+        return false;
+    }
 }

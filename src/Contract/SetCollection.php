@@ -34,4 +34,6 @@ interface SetCollection
     public function pop_last(): mixed;
     public function remove(mixed $value);
     public function values(): array;
+
+    public function in_collection(... $values): bool;
 }

@@ -184,3 +184,10 @@ test('remove_function',                 function () use ($numbers) {
 
     expect(in_array(200, $bst2->values()))->toBeFalse();
 });
+
+test('in_collection_function',                 function () use ($numbers) {
+    $bst = BSTSet::from($numbers);
+
+    expect($bst->in_collection(20, 30))->toBeTrue();
+    expect($bst->in_collection(21))->toBeFalse();
+});
