@@ -15,7 +15,6 @@ interface SetCollection
 
     public function multi_insert(array $values): void;
 
-
     // Clear DataStruct
     public function clear(): void;
 

@@ -13,14 +13,14 @@ $items = [
     'Sina' => 'Saadatfar',
 ];
 
-test('new_static_function', function () {
+test('new_static_function',                 function () {
     $bst = BSTMap::new();
 
     // new function has to make and return new instance of collection
     expect($bst)->toBeInstanceOf(BSTMap::class);
 });
 
-test('insert_function', function () {
+test('insert_function',                     function () {
     $bst = BSTMap::new();
 
     // root is null after creating new collection
@@ -41,7 +41,7 @@ test('insert_function', function () {
     expect($bst->root->right_child->value)->toBe('Motevalli');
 });
 
-test('is_empty_function', function () {
+test('is_empty_function',                   function () {
     $bst = BSTMap::new();
     expect($bst->is_empty())->toBeTrue();
 
@@ -51,7 +51,7 @@ test('is_empty_function', function () {
     expect($bst->is_empty())->toBeFalse();
 });
 
-test('from_static_function', function () use ($items) {
+test('from_static_function',                function () use ($items) {
     $bst = BSTMap::from($items);
 
     // from function has to make and return new instance of collection with passed data
@@ -61,7 +61,7 @@ test('from_static_function', function () use ($items) {
 
 });
 
-test('multi_insert_function', function () use ($items) {
+test('multi_insert_function',               function () use ($items) {
     $bst = BSTMap::new();
 
     $bst->multi_insert($items);
@@ -72,7 +72,7 @@ test('multi_insert_function', function () use ($items) {
 //    expect($bst->len())->toBe(count($numbers));
 });
 
-test('clear_function', function () use ($items) {
+test('clear_function',                      function () use ($items) {
     $bst = BSTSet::from($items);
     expect($bst->is_empty())->toBeFalse();
 
@@ -80,7 +80,7 @@ test('clear_function', function () use ($items) {
     expect($bst->is_empty())->toBeTrue();
 });
 
-test('len_function', function () use ($items) {
+test('len_function',                        function () use ($items) {
     $bst = BSTMap::from($items);
     expect($bst->len())->toBe(count($items));
 
@@ -90,7 +90,7 @@ test('len_function', function () use ($items) {
     expect($bst->len())->toBe(count($items) + 2);
 });
 
-test('first_and_last_key_value_function', function () use ($items) {
+test('first_and_last_key_value_function',   function () use ($items) {
     $bst = BSTMap::from($items);
 
     expect($bst->first_value())->toBe('Heydary');
@@ -100,7 +100,7 @@ test('first_and_last_key_value_function', function () use ($items) {
     expect($bst->last_key())->toBe('Sina');
 });
 
-test('values_function', function () use ($items) {
+test('values_function',                     function () use ($items) {
     $bst = BSTMap::from($items);
     expect($bst->values())->toBe([
         'Heydary',
@@ -113,7 +113,7 @@ test('values_function', function () use ($items) {
 
 });
 
-test('keys_function', function () use ($items) {
+test('keys_function',                       function () use ($items) {
     $bst = BSTMap::from($items);
     expect($bst->keys())->toBe([
         'Goli',
@@ -126,7 +126,7 @@ test('keys_function', function () use ($items) {
 
 });
 
-test('all_function', function () use ($items) {
+test('all_function',                        function () use ($items) {
     $bst = BSTMap::from($items);
     expect($bst->all())->toBe([
         'Goli' => 'Heydary',
@@ -139,7 +139,7 @@ test('all_function', function () use ($items) {
 
 });
 
-test('pop_first_function',              function () use ($items) {
+test('pop_first_function',                  function () use ($items) {
     $bst = BSTMap::from($items);
 
     expect($bst->first_value())->toBe('Heydary');
@@ -152,7 +152,7 @@ test('pop_first_function',              function () use ($items) {
 
 });
 
-test('pop_last_function',               function () use ($items) {
+test('pop_last_function',                   function () use ($items) {
 
     $bst = BSTMap::from($items);
 
@@ -166,7 +166,7 @@ test('pop_last_function',               function () use ($items) {
 
 });
 
-test('remove_function',                 function () use ($items) {
+test('remove_function',                     function () use ($items) {
     $bst = BSTMap::from($items);
 
     // Remove returns the deleted element

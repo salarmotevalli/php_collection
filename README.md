@@ -17,5 +17,14 @@ $bst->insert(2);
 
 $bst->values(); // returns: [2, 10, 23]
 ```
+##### Map
+``` php
+$bst = BSTMap::new();
+$bst->insert('Salar', 20);
+$bst->insert('Goli', 20);
+
+
+$bst->all(); // returns: ['Goli' => 20, 'Salar' => 20]
+```
 _________
 
