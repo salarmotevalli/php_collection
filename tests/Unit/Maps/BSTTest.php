@@ -181,3 +181,11 @@ test('remove_function',                     function () use ($items) {
     expect($bst->remove('Farzin'))->toBeNull();
 
 });
+
+
+test('in_collection_function',                 function () use ($items) {
+    $bst = BSTSet::from($items);
+
+    expect($bst->in_collection('Motevalli', 'Heydary'))->toBeTrue();
+    expect($bst->in_collection('Sabbagh'))->toBeFalse();
+});

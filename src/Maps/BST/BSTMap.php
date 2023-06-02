@@ -186,7 +186,6 @@ class BSTMap implements MapCollection, Collection
     {
         if ($this->is_empty()) return null;
 
-
         $current = $this->root;
         $parent = null;
 
@@ -223,9 +222,11 @@ class BSTMap implements MapCollection, Collection
             }
 
             return $tmp;
-        }    }
+        }
+    }
 
     public function remove(mixed $key): mixed
+
     {
         return $this->_remove($key);
     }
@@ -387,5 +388,65 @@ class BSTMap implements MapCollection, Collection
             // set as current node
             $current = $current->right_child;
         }
+    }
+
+    public function in_collection(...$values): bool
+    {
+        foreach ($values as $value) {
+            if (!$this->is_there_value($value)) return false;
+        }
+
+        // All entries exist
+        return true;
+    }
+
+    private function is_there_value($value): bool
+    {
+        $current = $this->root;
+        while ($current !== null) {
+
+            // Collection has value
+            if ($current->value === $value) {
+                return true;
+            }
+
+            // Check and set nodes
+            $current = match (true) {
+                $current->value > $value => $current->left_child,
+                $current->value < $value => $current->right_child,
+            };
+        }
+
+        return false;
+    }
+
+    public function is_set(...$keys): bool
+    {
+        foreach ($keys as $key) {
+            if (!$this->is_there_key($key)) return false;
+        }
+
+        // All entries exist
+        return true;
+    }
+
+    private function is_there_key($key): bool
+    {
+        $current = $this->root;
+        while ($current !== null) {
+
+            // Collection has value
+            if ($current->key === $key) {
+                return true;
+            }
+
+            // Check and set nodes
+            $current = match (true) {
+                $current->key > $key => $current->left_child,
+                $current->key < $key => $current->right_child,
+            };
+        }
+
+        return false;
     }
 }

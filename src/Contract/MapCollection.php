@@ -54,4 +54,8 @@ interface MapCollection
 
     // Return key value pairs
     public function all(): array;
+
+    public function in_collection(... $values): bool;
+
+    public function is_set(... $keys): bool;
 }
